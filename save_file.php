@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fileUpload'])) {
     // GitHub API thông tin
     $owner = 'shin0pro'; // Thay thế bằng tên đăng nhập GitHub của bạn
     $repo = 'uptodown'; // Thay thế bằng tên repository của bạn
-    $path = 'https://github.com/shin0pro/uptodown/tree/main/uploads' . $filename; // Đường dẫn nơi lưu tệp trong repository
+    $path = 'uploads/' . $filename; // Đường dẫn nơi lưu tệp trong repository
     $message = 'Upload image ' . $filename;
     $token = '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'; // Thay thế bằng token truy cập cá nhân của bạn
 
@@ -38,14 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fileUpload'])) {
     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    // Kiểm tra nếu $uploadOk bằng 0 do lỗi 
-if ($uploadOk == 0) 
-{ echo "Xin lỗi, tệp của bạn không được tải lên."; 
-// Nếu mọi thứ đều ổn, cố gắng tải lên tệp 
-} 
-else 
-{ if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) 
-{ echo "Tệp " . htmlspecialchars(basename($_FILES["fileUpload"]["name"])) . " đã được tải lên."; } 
-else 
-{ echo "Xin lỗi, đã xảy ra lỗi khi tải lên tệp của bạn."; } } } 
+    // Kiểm tra mã phản hồi HTTP từ GitHub API
+    if ($http_code == 201) {
+        echo "Tệp " . htmlspecialchars($filename) . " đã được tải lên thành công.";
+    } else {
+        echo "Đã xảy ra lỗi khi tải lên tệp.";
+        echo "<pre>$response</pre>";
+    }
+}
 ?>
