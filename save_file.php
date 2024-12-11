@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fileUpload'])) {
     $repo = 'uptodown'; // Thay thế bằng tên repository của bạn
     $path = 'uploads/' . $filename; // Đường dẫn nơi lưu tệp trong repository
     $message = 'Upload image ' . $filename;
-    $token = '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'; // Thay thế bằng token truy cập cá nhân của bạn
+    $token = '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'; // Thay thế bằng token truy cập cá nhân của bạn
 
     // Tạo dữ liệu yêu cầu
     $data = json_encode([
