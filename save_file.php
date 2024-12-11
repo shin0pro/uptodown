@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fileUpload'])) {
     // GitHub API thông tin
     $owner = 'shin0pro'; // Thay thế bằng tên đăng nhập GitHub của bạn
     $repo = 'uptodown'; // Thay thế bằng tên repository của bạn
-    $path = 'shin0pro/uptodown/uploads' . $filename; // Đường dẫn nơi lưu tệp trong repository
+    $path = 'uptodown/uploads' . $filename; // Đường dẫn nơi lưu tệp trong repository
     $message = 'Upload image ' . $filename;
     $token = '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'; // Thay thế bằng token truy cập cá nhân của bạn
 
