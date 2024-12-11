@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chia sẻ phần mềm thủ thuật miễn phí</title>
+    <link rel="icon" href="img\title-icon.png" type="image/x-icon">
+    <style>
+        .description {
+    font-size: 1.2em;
+    color: auto;
+    line-height: 1.6;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .container {
+            background-color: #1E1E1E;
+        }
+
+        body.dark-mode header img {
+            filter: brightness(0.7);
+        }
+        body.dark-mode .content-section {
+            background-color: #2C2C2C;
+        }
+        body.dark-mode nav ul {
+            background-color: #333;
+        }
+
+        body.dark-mode nav ul li a, 
+        body.dark-mode nav ul li .dropdown-btn {
+            color: auto;
+        }
+
+        body.dark-mode .footer-top {
+            background-color: #A33333;
+        }
+
+        body.dark-mode .footer-bottom {
+            background-color: #333333;
+        }
+        .theme-toggle-button:hover {
+            background-color: #ddd;
+        }
+
+        .theme-toggle-button img {
+            width: 20px;
+            height: 20px;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1C1C1C;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Tạo khoảng cách giữa các mục */
+        }
+
+        nav ul li {
+            display: inline-block;
+            padding: 10px;
+            border-right: 1px solid #ddd;
+        }
+
+        nav ul li:last-child {
+            border-right: none;
+        }
+
+        nav ul li a, nav ul li .dropdown-btn {
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover, nav ul li .dropdown-btn:hover {
+            background-color: #111;
+        }
+
+        nav ul li .dropdown {
+            position: relative;
+        }
+
+        nav ul li .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        nav ul li .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            border: 1px solid transparent;
+        }
+
+        nav ul li .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            border-color: #ddd;
+        }
+
+        nav ul li:hover .dropdown-content {
+            display: block;
+        }
+
+        .nav-icon {
+            margin-right: 8px;
+            width: 20px;
+            height: auto;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .search-container {
+            display: inline-block;
+            padding: 8px;
+        }
+
+        .search-container input[type="text"] {
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .search-container button {
+            padding: 8px 10px;
+            background-color: #1C1C1C;
+            color: white;
+            border: 1px solid #f4f4f4;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #111;
+        }
+
+        h2 {
+            color: auto;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 10px 0;
+        }
+
+        a.download-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #1C1C1C;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        a.download-button:hover {
+            background-color:#000;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: #CD3333;
+            color: white;
+            padding: 6px;
+            margin: 0 auto; 
+        }
+
+        .footer-top a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .footer-bottom {
+            background-color: #1C1C1C;
+            color: white;
+            text-align: left;
+            padding: 10px;
+            margin: 0 auto; 
+        }
+
+        .theme-toggle-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f4f4f4;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: none;
+        }
+
+        .theme-toggle-button:hover {
+            background-color: #ddd;
+        }
+
+        .theme-toggle-button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .document-sections {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.document-category {
+    width: 30%;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.document-category h3 {
+    color: #CD3333;
+    border-bottom: 2px solid #CD3333;
+    padding-bottom: 5px;
+}
+
+.document-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.document-category ul li {
+    margin: 10px 0;
+}
+
+.document-category ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.document-category ul li p {
+    font-size: 12px;
+    color: #666;
+}
+
+.document-preview {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.download-link {
+    display: block;
+    color: #CD3333;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.download-button {
+    padding: 10px 20px;
+    background-color: #CD3333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.download-button:hover {
+    background-color: #b22222;
+}
+.document-sections {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.document-category {
+    width: 30%;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.document-category h3 {
+    color: #CD3333;
+    border-bottom: 2px solid #CD3333;
+    padding-bottom: 5px;
+}
+
+.document-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.document-category ul li {
+    margin: 10px 0;
+}
+
+.document-category ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.document-category ul li p {
+    font-size: 12px;
+    color: #666;
+}
+
+.document-preview {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.download-link {
+    display: block;
+    color: #CD3333;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.download-button {
+    padding: 10px 20px;
+    background-color: #CD3333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.download-button:hover {
+    background-color: #b22222;
+}
+.canle {
+    text-align: justify;
+}
+
+     
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="index.html"><img src="img/banner-icon.png" alt="Banner Image"></a>  
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="index.html"><img src="img/home-icon.png" class="nav-icon"></a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn"><img src="img/document-icon.png" class="nav-icon">Tài liệu</a>
+                    <div class="dropdown-content">
+                        <a href="navigationbar/tailieutinthpt.html">Tài liệu HTML cơ bản</a>
+                        <a href="#tailieu2">Tài liệu CSS cơ bản</a>
+                        <a href="#tailieu3">Tài liệu JavaScript cơ bản</a>
+                        <a href="#tailieu4">Tài liệu C++ cơ bản</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn"><img src="img/software-icon.png" class="nav-icon">Phần mềm</a>
+                    <div class="dropdown-content">
+                        <a href="#phanmem1">Edit chỉnh sửa hình ảnh, video</a>
+                        <a href="#phanmem2">Hỗ Trợ Học Tập</a>
+                    </div>
+                </li>
+                <li><a href="tricks.html"><img src="img/tricks-icon.png" class="nav-icon">Thủ Thuật </a></li>
+                <li><a href="explore.html"><img src="img/explore-icon.png" class="nav-icon">Khám Phá</a></li>
+                <li><a href="favorite.html"><img src="img/favorite-icon.png" class="nav-icon">Favorite</a></li>
+                <li><a href="navigationbar/upload.html"><img src="img/upload-icon.png" class="nav-icon">Upload</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-toggle-button" >
+                        <img src="img/sun-icon.png" id="theme-icon" alt="Chế độ tối/sáng" width="20px">
+                    </button>
+                </li>
+                <li class="search-container">
+                    <form action="search_results.html" method="get">
+                        <input type="text" name="q" placeholder="Tìm kiếm..." required>
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            <div class="description">
+                    <h1 style="color:#DD0000" class="canle"> Tài liệu JavaScript chuyên ngành Công nghệ thông tin. </h1>
+                    
+                    
+                
+                    </div>
+        </main>
+
+<div class="document-preview">
+    <h4>Xem trước tài liệu</h4>
+    <!-- Embed the uploaded PDF -->
+    <iframe src="tl javascript.pdf" width="1200px" height="700px"></iframe>
+    <button class="download-button" onclick="window.location.href='tl javascript.pdf'">Tải tài liệu</button>
+    <p>  <br> </p>
+</div>
+
+        <footer>
+            <div class="footer-top">
+                <a href="#">FACEBOOK</a>
+                <a href="#">GIỚI THIỆU</a>
+                <a href="#">CHÍNH SÁCH BẢO MẬT</a>
+                <a href="#">LIÊN HỆ</a>
+            </div>
+            <div class="footer-bottom">
+                <p> Copyright &copy; 2024 | UPTODOWN.online</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        // Lấy nút chuyển chế độ và kiểm tra trạng thái chế độ tối
+        const themeToggleButton = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+
+        // Kiểm tra nếu chế độ tối đã được lưu trong localStorage
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            themeIcon.src = "img/moon-icon.png";  // Đổi biểu tượng sang mặt trăng
+        }
+
+        // Thêm sự kiện click cho nút chuyển chế độ 
+        themeToggleButton.addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+
+            // Lưu trạng thái chế độ vào localStorage để nhớ khi tải lại trang
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeIcon.src = "img/sun-icon.png";  // Đổi biểu tượng sang mặt trăng
+            } else {
+                localStorage.setItem("theme", "light");
+                themeIcon.src = "img/moon-icon.png";  // Đổi biểu tượng sang mặt trời
+            }
+        });
+    </script>
+</body>
+</html>

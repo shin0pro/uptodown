@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"> <!-- Đặt kiểu mã hóa ký tự cho tài liệu -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Đặt chế độ xem cho thiết bị di động -->
+    <title>Chia sẻ phần mềm thủ thuật miễn phí</title> <!-- Tiêu đề của trang web -->
+    <link rel="icon" href="title-icon.png" type="image/x-icon"> <!-- Đặt biểu tượng trang web -->
+    <style>
+        body {
+            font-family: Arial, sans-serif; <!-- Đặt font chữ cho toàn trang -->
+            margin: 0; <!-- Loại bỏ khoảng cách mặc định -->
+            padding: 0; <!-- Loại bỏ khoảng đệm mặc định -->
+            background-color: #f4f4f4; <!-- Đặt màu nền mặc định -->
+            display: flex; <!-- Sử dụng flexbox để canh giữa nội dung -->
+            justify-content: center; <!-- Canh giữa theo chiều ngang -->
+            transition: background-color 0.3s, color 0.3s; <!-- Hiệu ứng chuyển đổi màu nền và màu chữ -->
+        }
+        body.dark-mode {
+            background-color: #121212; <!-- Màu nền khi ở chế độ tối -->
+            color: #e0e0e0; <!-- Màu chữ khi ở chế độ tối -->
+        }
+
+        body.dark-mode .container {
+            background-color: #1E1E1E; <!-- Màu nền của container khi ở chế độ tối -->
+        }
+
+        body.dark-mode header img {
+            filter: brightness(0.7); <!-- Hiệu ứng làm tối hình ảnh tiêu đề khi ở chế độ tối -->
+        }
+        body.dark-mode .content-section {
+            background-color: #2C2C2C; <!-- Màu nền của phần nội dung khi ở chế độ tối -->
+        }
+        body.dark-mode nav ul {
+            background-color: #333; <!-- Màu nền của danh sách điều hướng khi ở chế độ tối -->
+        }
+
+        body.dark-mode nav ul li a, 
+        body.dark-mode nav ul li .dropdown-btn {
+            color: auto; <!-- Màu chữ của các liên kết và nút thả xuống khi ở chế độ tối -->
+        }
+
+        body.dark-mode .footer-top {
+            background-color: #A33333; <!-- Màu nền của phần footer trên khi ở chế độ tối -->
+        }
+
+        body.dark-mode .footer-bottom {
+            background-color: #333333; <!-- Màu nền của phần footer dưới khi ở chế độ tối -->
+        }
+        .theme-toggle-button:hover {
+            background-color: #ddd; <!-- Màu nền của nút chuyển đổi chủ đề khi hover -->
+        }
+
+        .theme-toggle-button img {
+            width: 20px; <!-- Chiều rộng của hình ảnh nút chuyển đổi chủ đề -->
+            height: 20px; <!-- Chiều cao của hình ảnh nút chuyển đổi chủ đề -->
+        }
+        .container {
+            width: 90%; <!-- Đặt chiều rộng container -->
+            max-width: 1200px; <!-- Chiều rộng tối đa của container -->
+            background-color: #ffffff; <!-- Màu nền của container -->
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); <!-- Đổ bóng cho container -->
+            padding: 20px; <!-- Khoảng đệm bên trong container -->
+            margin-top: 20px; <!-- Khoảng cách trên của container -->
+            border-radius: 8px; <!-- Bo góc cho container -->
+            transition: background-color 0.3s, box-shadow 0.3s; <!-- Hiệu ứng chuyển đổi màu nền và đổ bóng -->
+        }
+
+        header {
+            text-align: center; <!-- Canh giữa nội dung tiêu đề -->
+            margin-bottom: 20px; <!-- Khoảng cách dưới của tiêu đề -->
+        }
+
+        header img {
+            width: 100%; <!-- Chiều rộng của hình ảnh tiêu đề -->
+            height: auto; <!-- Chiều cao tự động của hình ảnh tiêu đề -->
+            border-radius: 8px; <!-- Bo góc cho hình ảnh tiêu đề -->
+        }
+
+        nav ul {
+            list-style-type: none; <!-- Loại bỏ ký hiệu danh sách -->
+            padding: 0; <!-- Loại bỏ khoảng đệm -->
+            overflow: hidden; <!-- Ẩn phần thừa -->
+            background-color: #1C1C1C; <!-- Màu nền của danh sách điều hướng -->
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); <!-- Đổ bóng cho danh sách điều hướng -->
+            border-radius: 8px; <!-- Bo góc cho danh sách điều hướng -->
+            display: flex; <!-- Sử dụng flexbox để canh giữa nội dung -->
+            align-items: center; <!-- Canh giữa theo chiều dọc -->
+            justify-content: space-between; <!-- Tạo khoảng cách giữa các mục -->
+        }
+
+        nav ul li {
+            display: inline-block; <!-- Hiển thị mỗi mục như một khối ngang -->
+            padding: 10px; <!-- Khoảng đệm bên trong mỗi mục -->
+            border-right: 1px solid #ddd; <!-- Đường viền phải cho mỗi mục -->
+        }
+
+        nav ul li:last-child {
+            border-right: none; <!-- Loại bỏ đường viền phải cho mục cuối cùng -->
+        }
+
+        nav ul li a, nav ul li .dropdown-btn {
+            display: block; <!-- Hiển thị mỗi liên kết và nút thả xuống như một khối -->
+            color: white; <!-- Màu chữ của liên kết và nút thả xuống -->
+            text-align: center; <!-- Canh giữa văn bản -->
+            text-decoration: none; <!-- Loại bỏ gạch dưới văn bản -->
+        }
+
+        nav ul li a:hover, nav ul li .dropdown-btn:hover {
+            background-color: #111; <!-- Màu nền của liên kết và nút thả xuống khi hover -->
+        }
+
+        nav ul li .dropdown {
+            position: relative; <!-- Định vị tuyệt đối các phần tử con -->
+        }
+
+        nav ul li .dropdown-content {
+            display: none; <!-- Ẩn nội dung thả xuống -->
+            position: absolute; <!-- Định vị tuyệt đối nội dung thả xuống -->
+            background-color: #f9f9f9; <!-- Màu nền của nội dung thả xuống -->
+            min-width: 160px; <!-- Chiều rộng tối thiểu của nội dung thả xuống -->
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); <!-- Đổ bóng cho nội dung thả xuống -->
+            z-index: 1; <!-- Đặt chỉ số z-index để nội dung thả xuống nằm trên cùng -->
+        }
+
+        nav ul li .dropdown-content a {
+            color: black; <!-- Màu chữ của liên kết trong nội dung thả xuống -->
+            padding: 12px 16px; <!-- Khoảng đệm của liên kết trong nội dung thả xuống -->
+            text-decoration: none; <!-- Loại bỏ gạch dưới văn bản -->
+            display: block; <!-- Hiển thị mỗi liên kết như một khối -->
+            text-align: left; <!-- Canh trái văn bản -->
+            border: 1px solid transparent; <!-- Đường viền trong suốt -->
+        }
+
+        nav ul li .dropdown-content a:hover {
+            background-color: #f1f1f1; <!-- Màu nền của liên kết khi hover -->
+            border-color: #ddd; <!-- Đường viền khi hover -->
+        }
+
+        nav ul li:hover .dropdown-content {
+            display: block; <!-- Hiển thị nội dung thả xuống khi hover -->
+        }
+
+        .nav-icon {
+            margin-right: 8px; <!-- Khoảng cách phải của biểu tượng điều hướng -->
+            width: 20px; <!-- Chiều rộng của biểu tượng điều hướng -->
+            height: auto; <!-- Chiều cao tự động của biểu tượng điều hướng -->
+            display: inline-block; <!-- Hiển thị biểu tượng điều hướng như một khối ngang -->
+            vertical-align: middle; <!-- Canh giữa theo chiều dọc -->
+        }
+
+        .search-container {
+            display: inline-block; <!-- Hiển thị container tìm kiếm như một khối ngang -->
+            padding: 8px; <!-- Khoảng đệm của container tìm kiếm -->
+        }
+
+        .search-container input[type="text"] {
+            padding: 8px; <!-- Khoảng đệm của ô tìm kiếm -->
+            width: 500px; <!-- Chiều rộng của ô tìm kiếm -->
+            border: 1px solid #ddd; <!-- Đường viền của ô tìm kiếm -->
+            border-radius: 4px; <!-- Bo góc cho ô tìm kiếm -->
+            font-size: 14px; <!-- Kích thước chữ của ô tìm kiếm -->
+        }
+
+        .search-container button {
+            padding: 8px 10px; <!-- Khoảng đệm của nút tìm kiếm -->
+            background-color: #1C1C1C; <!-- Màu nền của nút tìm kiếm -->
+            color: white; <!-- Màu chữ của nút tìm kiếm -->
+            border: 1px solid #f4f4f4; <!-- Đường viền của nút tìm kiếm -->
+            border-radius: 4px; <!-- Bo góc cho nút tìm kiếm -->
+            cursor: pointer; <!-- Biểu tượng con trỏ khi hover -->
+        }
+        .search-container button:hover {
+            background-color: #111; <!-- Màu nền của nút tìm kiếm khi hover -->
+        }
+
+        h2 {
+            color: auto; <!-- Màu chữ của tiêu đề h2 -->
+        }
+
+        ul {
+            list-style-type: none; <!-- Loại bỏ ký hiệu danh sách -->
+            padding: 0; <!-- Loại bỏ khoảng đệm -->
+        }
+
+        ul li {
+            margin: 10px 0; <!-- Khoảng cách giữa các mục danh sách -->
+        }
+
+        a.download-button {
+            display: inline-block; <!-- Hiển thị liên kết tải về như một khối ngang -->
+            padding: 10px 15px; <!-- Khoảng đệm của nút tải về -->
+            background-color: #1C1C1C; <!-- Màu nền của nút tải về -->
+            color: white; <!-- Màu chữ của nút tải về -->
+            text-decoration: none; <!-- Loại bỏ gạch dưới văn bản -->
+            border-radius: 5px; <!-- Bo góc cho nút tải về -->
+            margin-right: 5px; <!-- Khoảng cách phải của nút tải về -->
+        }
+
+        a.download-button:hover {
+            background-color: #000; <!-- Màu nền của nút tải về khi hover -->
+        }
+
+        .footer-top {
+            display: flex; <!-- Sử dụng flexbox để canh giữa nội dung -->
+            justify-content: flex-end; <!-- Canh phải nội dung -->
+            align-items: center; <!-- Canh giữa theo chiều dọc -->
+            background-color: #CD3333; <!-- Màu nền của phần footer trên -->
+            color: white; <!-- Màu chữ của phần footer trên -->
+            padding: 6px; <!-- Khoảng đệm của phần footer trên -->
+            margin: 0 auto; <!-- Canh giữa theo chiều ngang -->
+        }
+
+        .footer-top a {
+            color: white; <!-- Màu chữ của liên kết trong phần footer trên -->
+            text-decoration: none; <!-- Loại bỏ gạch dưới văn bản -->
+            margin-left: 15px; <!-- Khoảng cách trái của liên kết -->
+        }
+
+        .footer-bottom {
+            background-color: #1C1C1C; <!-- Màu nền của phần footer dưới -->
+            color: white; <!-- Màu chữ của phần footer dưới -->
+            text-align: left; <!-- Canh trái nội dung -->
+            padding: 10px; <!-- Khoảng đệm của phần footer dưới -->
+            margin: 0 auto; <!-- Canh giữa theo chiều ngang -->
+        }
+
+        .theme-toggle-button {
+            display: inline-flex; <!-- Hiển thị nút chuyển đổi chủ đề như một khối ngang -->
+            align-items: center; <!-- Canh giữa theo chiều dọc -->
+            justify-content: center; <!-- Canh giữa theo chiều ngang -->
+            width: 40px; <!-- Chiều rộng của nút chuyển đổi chủ đề -->
+            height: 40px; <!-- Chiều cao của nút chuyển đổi chủ đề -->
+            border-radius: 50%; <!-- Bo tròn hoàn toàn nút chuyển đổi chủ đề -->
+            background-color: #f4f4f4; <!-- Màu nền của nút chuyển đổi chủ đề -->
+            border: none; <!-- Loại bỏ đường viền -->
+            cursor: pointer; <!-- Biểu tượng con trỏ khi hover -->
+            transition: background-color 0.3s; <!-- Hiệu ứng chuyển đổi màu nền -->
+            box-shadow: none; <!-- Loại bỏ đổ bóng -->
+        }
+
+        .theme-toggle-button:hover {
+            background-color: #ddd; <!-- Màu nền của nút chuyển đổi chủ đề khi hover -->
+        }
+
+        .theme-toggle-button img {
+            width: 20px; <!-- Chiều rộng của hình ảnh nút chuyển đổi chủ đề -->
+            height: 20px; <!-- Chiều cao của hình ảnh nút chuyển đổi chủ đề -->
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="header-image.jpg" alt="Header Image"> <!-- Hình ảnh tiêu đề -->
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html"><img src="img/home-icon.png" class="nav-icon"></a></li>
+                 <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn"><img src="img/software-icon.png" class="nav-icon">Phần mềm</a>
+                    <div class="dropdown-content">
+                        <a href="sublimetext.html">Sublime Text</a>
+                        <a href="codeblock.html">Code Block</a>
+                    </div>
+                </li>
+                  <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn"><img src="img/document-icon.png" class="nav-icon">Tài liệu</a>
+                    <div class="dropdown-content">
+                        <a href="tailieuhtmlcoban.html">Tài liệu HTML cơ bản</a>
+                        <a href="tailieuc++coban.html">Tài liệu C++ cơ bản</a>
+                        <a href="tl_jv.html">Tài liệu Java Script</a>
+                        <a href="tl_toan_cntt.html">Tài liệu Toán CNTT</a>
+                        <a href="tl_chuyen_nganh_cntt.html">Tài liệu Tiếng Anh chuyên ngành CNTT</a>
+                        <a href="khác.html">Tài liệu một số môn khác</a>
+                    </div>
+                </li>  
+                <li><a href="tricks.html"><img src="img/tricks-icon.png" class="nav-icon">Thủ Thuật </a></li>
+                <li><a href="khampha.html"><img src="img/explore-icon.png" class="nav-icon">Khám Phá</a></li>
+                <li><a href="favorite.html"><img src="img/favorite-icon.png" class="nav-icon">Favorite</a></li>
+                <li><a href="upload.html"><img src="img/upload-icon.png" class="nav-icon">Upload</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-toggle-button" >
+                        <img src="img/sun-icon.png" id="theme-icon" alt="Chế độ tối/sáng" width="20px">
+                    </button>
+                </li>
+                <li class="search-container">
+                    <div class="search-results">
+                        <form action="#" method="get">
+                        <input type="text" name="search" placeholder="Nhập từ khóa tìm kiếm...">
+                        <button type="submit">Tìm kiếm</button>
+                        </form>
+                        <script src="script.js"></script>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            <h2>Chào mừng đến với trang chia sẻ phần mềm thủ thuật miễn phí</h2> <!-- Tiêu đề chính -->
+            <p>Nội dung chính của trang web sẽ được đặt ở đây.</p> <!-- Đoạn văn nội dung -->
+            <ul>
+                <li><a href="#" class="download-button">Tải về phần mềm A</a></li> <!-- Liên kết tải về phần mềm A -->
+                <li><a href="#" class="download-button">Tải về phần mềm B</a></li> <!-- Liên kết tải về phần mềm B -->
+            </ul>
+        </main>
+        <footer>
+            <div class="footer-top">
+                <a href="contact.html">Liên hệ</a> <!-- Liên kết đến trang liên hệ -->
+                <a href="privacy.html">Chính sách bảo mật</a> <!-- Liên kết đến trang chính sách bảo mật -->
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Chia sẻ phần mềm thủ thuật miễn phí. All rights reserved.</p> <!-- Thông tin bản quyền -->
+            </div>
+        </footer>
+        <button class="theme-toggle-button">
+            <img src="theme-icon.png" alt="Theme Toggle Icon"> <!-- Biểu tượng chuyển đổi chủ đề -->
+        </button>
+    </div>
+    <script>
+        // Chuyển đổi chủ đề sáng/tối
+        document.querySelector('.theme-toggle-button').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+<body>
+    <div class="container">
+        <header>
+            <!-- Liên kết quay về trang chủ -->
+            <a href="index.html"><img src="img/banner-icon.png" alt="Banner Image"></a>  
+        </header>
+
+        <nav>
+            <ul>
+                <!-- Liên kết đến trang chủ -->
+                <li><a href="index.html"><img src="img/home-icon.png" class="nav-icon" alt="Home Icon"></a></li>
+                
+                <!-- Dropdown menu cho tài liệu -->
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">
+                        <img src="img/document-icon.png" class="nav-icon" alt="Document Icon">Tài liệu
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="navigationbar/tailieutinthpt.html">Tài liệu HTML cơ bản</a>
+                        <a href="#tailieu2">Tài liệu CSS cơ bản</a>
+                        <a href="#tailieu3">Tài liệu JavaScript cơ bản</a>
+                        <a href="#tailieu4">Tài liệu C++ cơ bản</a>
+                    </div>
+                </li>
+
+                <!-- Dropdown menu cho phần mềm -->
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">
+                        <img src="img/software-icon.png" class="nav-icon" alt="Software Icon">Phần mềm
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="#phanmem1">Edit chỉnh sửa hình ảnh, video</a>
+                        <a href="#phanmem2">Hỗ Trợ Học Tập</a>
+                    </div>
+                </li>
+
+                <!-- Liên kết đến trang thủ thuật -->
+                <li><a href="tricks.html"><img src="img/tricks-icon.png" class="nav-icon" alt="Tricks Icon">Thủ Thuật</a></li>
+                
+                <!-- Liên kết đến trang khám phá -->
+                <li><a href="explore.html"><img src="img/explore-icon.png" class="nav-icon" alt="Explore Icon">Khám Phá</a></li>
+
+                <!-- Liên kết đến trang yêu thích -->
+                <li><a href="favorite.html"><img src="img/favorite-icon.png" class="nav-icon" alt="Favorite Icon">Favorite</a></li>
+                
+                <!-- Liên kết đến trang upload -->
+                <li><a href="navigationbar/upload.html"><img src="img/upload-icon.png" class="nav-icon" alt="Upload Icon">Upload</a></li>
+                
+                <!-- Nút chuyển đổi chế độ sáng/tối -->
+                <li>
+                    <button id="theme-toggle" class="theme-toggle-button">
+                        <img src="img/sun-icon.png" id="theme-icon" alt="Chế độ tối/sáng" width="20px">
+                    </button>
+                </li>
+                
+                <!-- Form tìm kiếm -->
+                <li class="search-container">
+                    <form action="search_results.html" method="get">
+                        <input type="text" name="q" placeholder="Tìm kiếm..." required>
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="content-section">
+                <h2>Giới thiệu trang web</h2>
+                <ul>
+                    <li>
+                        <p>Trang web của chúng tôi là nơi cung cấp một kho tài liệu và phần mềm đa dạng, hỗ trợ người dùng trong học tập, nghiên cứu và làm việc. Với hàng ngàn tài liệu phong phú từ các lĩnh vực như khoa học, kinh tế, kỹ thuật, và văn học, người dùng có thể dễ dàng tìm thấy các tài liệu cần thiết cho quá trình học tập và nghiên cứu của mình.</p>
+                    </li>
+                    <li>
+                        <p>Ngoài ra, trang web còn cung cấp các phần mềm hữu ích, bao gồm các ứng dụng văn phòng, công cụ lập trình, phần mềm thiết kế đồ họa và nhiều phần mềm miễn phí khác. Tất cả các tài liệu và phần mềm đều được kiểm duyệt kỹ lưỡng để đảm bảo chất lượng và tính an toàn khi sử dụng.</p>
+                    </li>
+                    <li>
+                        <p>
+                            Giao diện của trang web được thiết kế đơn giản, dễ sử dụng, giúp người dùng nhanh chóng tìm kiếm và tải về những nội dung mà mình cần. Chúng tôi cam kết cập nhật thường xuyên để mang đến cho người dùng những tài liệu và phần mềm mới nhất, đáp ứng kịp thời nhu cầu sử dụng trong thời đại công nghệ phát triển. 
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-top">
+                <a href="#">FACEBOOK</a>
+                <a href="#">GIỚI THIỆU</a>
+                <a href="#">CHÍNH SÁCH BẢO MẬT</a>
+                <a href="#">LIÊN HỆ</a>
+            </div>
+            <div class="footer-bottom">
+                <p> Copyright &copy; 2024 | UPTODOWN.online</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Lấy nút chuyển chế độ và kiểm tra trạng thái chế độ tối
+        const themeToggleButton = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+
+        // Kiểm tra nếu chế độ tối đã được lưu trong localStorage
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            themeIcon.src = "img/moon-icon.png";  // Đổi biểu tượng sang mặt trăng
+        }
+
+        // Thêm sự kiện click cho nút chuyển chế độ
+        themeToggleButton.addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+
+            // Lưu trạng thái chế độ vào localStorage để nhớ khi tải lại trang
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeIcon.src = "img/sun-icon.png";  // Đổi biểu tượng sang mặt trời
+            } else {
+                localStorage.setItem("theme", "light");
+                themeIcon.src = "img/moon-icon.png";  // Đổi biểu tượng sang mặt trăng
+            }
+        });
+    </script>
+</body>
+</html>
+</html>

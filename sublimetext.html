@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tải Sublime Text</title>
+    <link rel="icon" href="img\title-icon.png" type="image/x-icon">
+    <style>
+        .description {
+    font-size: 1.2em;
+    color: auto, rgba(0, 0, 0, 0.6);
+    line-height: 1.6;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .container {
+            background-color: #1E1E1E;
+        }
+
+        body.dark-mode header img {
+            filter: brightness(0.7);
+        }
+        body.dark-mode .content-section {
+            background-color: #2C2C2C;
+        }
+        body.dark-mode nav ul {
+            background-color: #333;
+        }
+
+        body.dark-mode nav ul li a, 
+        body.dark-mode nav ul li .dropdown-btn {
+            color: auto;
+        }
+
+        body.dark-mode .footer-top {
+            background-color: #A33333;
+        }
+
+        body.dark-mode .footer-bottom {
+            background-color: #333333;
+        }
+        .theme-toggle-button:hover {
+            background-color: #ddd;
+        }
+
+        .theme-toggle-button img {
+            width: 20px;
+            height: 20px;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1C1C1C;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Tạo khoảng cách giữa các mục */
+        }
+
+        nav ul li {
+            display: inline-block;
+            padding: 10px;
+            border-right: 1px solid #ddd;
+        }
+
+        nav ul li:last-child {
+            border-right: none;
+        }
+
+        nav ul li a, nav ul li .dropdown-btn {
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover, nav ul li .dropdown-btn:hover {
+            background-color: #111;
+        }
+
+        nav ul li .dropdown {
+            position: relative;
+        }
+
+        nav ul li .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        nav ul li .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            border: 1px solid transparent;
+        }
+
+        nav ul li .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            border-color: #ddd;
+        }
+
+        nav ul li:hover .dropdown-content {
+            display: block;
+        }
+
+        .nav-icon {
+            margin-right: 8px;
+            width: 20px;
+            height: auto;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .search-container {
+            display: inline-block;
+            padding: 8px;
+        }
+
+        .search-container input[type="text"] {
+            padding: 8px;
+            width: 500px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .search-container button {
+            padding: 8px 10px;
+            background-color: #1C1C1C;
+            color: white;
+            border: 1px solid #f4f4f4;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #111;
+        }
+
+        h2 {
+            color: auto;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 10px 0;
+        }
+
+        a.download-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #1C1C1C;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        a.download-button:hover {
+            background-color:#000;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: #CD3333;
+            color: white;
+            padding: 6px;
+            margin: 0 auto; 
+        }
+
+        .footer-top a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .footer-bottom {
+            background-color: #1C1C1C;
+            color: white;
+            text-align: left;
+            padding: 10px;
+            margin: 0 auto; 
+        }
+
+        .theme-toggle-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f4f4f4;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: none;
+        }
+
+        .theme-toggle-button:hover {
+            background-color: #ddd;
+        }
+
+        .theme-toggle-button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .document-sections {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.document-category {
+    width: 30%;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.document-category h3 {
+    color: #CD3333;
+    border-bottom: 2px solid #CD3333;
+    padding-bottom: 5px;
+}
+
+.document-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.document-category ul li {
+    margin: 10px 0;
+}
+
+.document-category ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.document-category ul li p {
+    font-size: 12px;
+    color: #666;
+}
+
+.document-preview {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.download-link {
+    display: block;
+    color: #CD3333;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.download-button {
+    padding: 10px 20px;
+    background-color: #CD3333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.download-button:hover {
+    background-color: #b22222;
+}
+.document-sections {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.document-category {
+    width: 30%;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.document-category h3 {
+    color: #CD3333;
+    border-bottom: 2px solid #CD3333;
+    padding-bottom: 5px;
+}
+
+.document-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.document-category ul li {
+    margin: 10px 0;
+}
+
+.document-category ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.document-category ul li p {
+    font-size: 12px;
+    color: #666;
+}
+
+.document-preview {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.download-link {
+    display: block;
+    color: #CD3333;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.download-button {
+    padding: 10px 20px;
+    background-color: #CD3333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.download-button:hover {
+    background-color: #b22222;
+}
+
+     
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="index.html"><img src="img/banner-icon.png" alt="Banner Image"></a>  
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="index.html"><img src="img/home-icon.png" class="nav-icon"></a></li>
+                 <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn"><img src="img/software-icon.png" class="nav-icon">Phần mềm</a>
+                    <div class="dropdown-content">
+                        <a href="sublimetext.html">Sublime Text</a>
+                        <a href="codeblock.html">Code Block</a>
+                    </div>
+                </li>
+                  <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn"><img src="img/document-icon.png" class="nav-icon">Tài liệu</a>
+                    <div class="dropdown-content">
+                        <a href="tailieuhtmlcoban.html">Tài liệu HTML cơ bản</a>
+                        <a href="tailieuc++coban.html">Tài liệu C++ cơ bản</a>
+                        <a href="tl_jv.html">Tài liệu Java Script</a>
+                        <a href="tl_toan_cntt.html">Tài liệu Toán CNTT</a>
+                        <a href="tl_chuyen_nganh_cntt.html">Tài liệu Tiếng Anh chuyên ngành CNTT</a>
+                        <a href="khác.html">Tài liệu một số môn khác</a>
+                    </div>
+                </li>  
+                <!-- <li><a href="tricks.html"><img src="img/tricks-icon.png" class="nav-icon">Thủ Thuật </a></li> -->
+                <li><a href="khampha.html"><img src="img/explore-icon.png" class="nav-icon">Khám Phá</a></li>
+                <!-- <li><a href="favorite.html"><img src="img/favorite-icon.png" class="nav-icon">Favorite</a></li> -->
+                <li><a href="upload.html"><img src="img/upload-icon.png" class="nav-icon">Upload</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-toggle-button" >
+                        <img src="img/sun-icon.png" id="theme-icon" alt="Chế độ tối/sáng" width="20px">
+                    </button>
+                </li>
+                <li class="search-container">
+                    <div class="search-results">
+                        <form action="#" method="get">
+                        <input type="text" name="search" placeholder="Nhập từ khóa tìm kiếm...">
+                        <button type="submit">Tìm kiếm</button>
+                        </form>
+                        <script src="script.js"></script>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            <div class="description">
+                    <h1 style="color:#DD0000"> I. Thông tin phần mềm Sublime Text 3 </h1>
+                    <p> •  Nền tảng: Windows, MacOS, Linux.<br>
+                    •  Dung lượng: ~35MB.<br>
+                    •  Loại ứng dụng: Công cụ.<br>
+                    •  Nhà phát hành: Sublime HQ Pty Ltd.<br>
+                    •  Nhà phát hành: Sublime HQ Pty Ltd.</p>
+                    <h1 style="color:#DD0000"> II. 5 tính năng chính phần mềm Sublime Text 3 </h1>
+                        <p>
+                            <b>1. Trình soạn thảo mã nguồn đa nền tảng được chia sẻ với giao diện lập trình ứng dụng Python.</b><br>
+                            <b>Submit Text 3</b> là môi trường phát triển tích hợp (IDE) được thiết kế với giao diện lập trình của ứng dụng <b>Python</b> trực quan, bắt mắt giúp người dùng thuận tiện hơn trong các thao tác lập trình của mình.<br>
+                    <img src="img\1-800x450.png" style="width:1200px; height:auto;">
+                            <b>2. Hỗ trợ đa ngôn ngữ: HTML, CSS, JavaScript, C#, C++, Python,…</b><br>
+                            Sublime Text 3 hỗ trợ nhiều ngôn ngữ lập trình khác nhau như Python, C++, C#, JavaScript, HTML, CSS, XML, XSLT,... nên Sublime Text 3 được rất nhiều lập trình viên tin dùng và lựa chọn sử dụng vì tính đa nhiệm và hỗ trợ đa ngôn ngữ của nó.<br>
+                    <img src="img\2-800x450.png" style="width:1200px; height:auto;">
+                            <b>3. Có API Python mạnh mẽ cho phép tăng cường chức năng plugin tích hợp.</b><br>
+                            Sublime Text 3 có phần bổ trợ giao diện lập trình ứng dụng (API) dựa trên ngôn ngữ lập trình Python mạnh mẽ cho phép các plugin tăng cường chức năng tích hợp. Package Control có thể được cài đặt thông qua bảng lệnh, cung cấp khả năng truy cập đơn giản vào hàng ngàn gói tính năng do cộng đồng xây dựng.<br>
+                    <img src="img\3-800x450-1.png" style="width:1200px; height:auto;">
+                            <b>4. Sử dụng Goto Anything để mở tệp chỉ với một vài lần nhấn phím và chuyển ngay đến các ký hiệu, dòng hoặc từ.</b><br>
+                            Trong Sublime Text 3, Goto Anything là một công cụ giúp người dùng mở bất kỳ tệp nào tồn tại trong thư mục mà bạn đang làm việc một cách dễ dàng, nhanh chóng chỉ trong một vài lần nhấn phím. Khi bạn mở bảng lệnh Goto Anything lần đầu tiên, nó sẽ hiển thị danh sách các tệp đã mở gần đây và bạn có thể bắt đầu nhập để nó bắt đầu liệt kê các tùy chọn cho những gì bạn muốn mở.
+                    <img src="img\4-800x450.png" style="width:1200px; height:auto;">   
+                    <b>5. Hỗ trợ ba nền tảng là Windows, MacOS và Linux.</b>
+                    Sublime Text 3 có thể cài đặt ở trên ba hệ điều hành phổ biến nhất hiện nay là Windows, MacOS hoặc Linux. Với ba nền tảng trên, bạn đừng lo lắng máy mình không cài đặt được Sublime Text 3 nhé.<br>
+                    <img src="img\5-800x450.png" style="width:1200px; height:auto;"> 
+                    Bài viết trên mình đã gửi đến các bạn thông tin về Sublime Text 3 - Trình soạn thảo đa nền tảng mã nguồn mở. Hãy để lại bình luận phía dưới nếu như có bất kỳ thắc mắc nào nhé. Chúc các bạn thành công! 
+                </p>
+            </div>
+        </main>
+<div class="document-preview">
+    <button class="download-button" onclick="window.location.href='https://www.sublimetext.com/'">Tải Sublime Text</button>
+    <p>  <br> </p>
+</div>
+
+        <footer>
+            <div class="footer-top">
+                <a href="https://www.facebook.com/IT2225">FACEBOOK</a>
+                <a href="index.html">GIỚI THIỆU</a>
+                <a href="chinhsachbaomat.html">CHÍNH SÁCH BẢO MẬT</a>
+                <a href="lienhe.html">LIÊN HỆ</a>
+            </div>
+            <div class="footer-bottom">
+                <p> Copyright &copy; 2024 | uptodown.lovestoblog.com</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        // Lấy nút chuyển chế độ và kiểm tra trạng thái chế độ tối
+        const themeToggleButton = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+
+        // Kiểm tra nếu chế độ tối đã được lưu trong localStorage
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            themeIcon.src = "img/moon-icon.png";  // Đổi biểu tượng sang mặt trăng
+        }
+
+        // Thêm sự kiện click cho nút chuyển chế độ 
+        themeToggleButton.addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+
+            // Lưu trạng thái chế độ vào localStorage để nhớ khi tải lại trang
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeIcon.src = "img/sun-icon.png";  // Đổi biểu tượng sang mặt trăng
+            } else {
+                localStorage.setItem("theme", "light");
+                themeIcon.src = "img/moon-icon.png";  // Đổi biểu tượng sang mặt trời
+            }
+        });
+    </script>
+</body>
+</html>
