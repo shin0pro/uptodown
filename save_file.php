@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST['submit'])) {
     // Đường dẫn đến thư mục lưu trữ tệp tải lên
-    $targetDir = __DIR__ . "https://github.com/shin0pro/uptodown/tree/5c7e8d5bf958abf4a2cb0dbfba521bcb1a06fb9d/uploads";  // Sử dụng __DIR__ để chỉ thư mục hiện tại
+    $targetDir = __DIR__ . "/uploads/";  // Sử dụng __DIR__ để chỉ thư mục hiện tại
 
     // Kiểm tra và tạo thư mục nếu chưa tồn tại
     if (!is_dir($targetDir)) {
