@@ -1,49 +1,51 @@
 <?php
-if (isset($_POST['submit'])) {
-    // Đường dẫn đến thư mục lưu trữ tệp tải lên
-    $targetDir = __DIR__ . "/uploads/";  // Sử dụng __DIR__ để chỉ thư mục hiện tại
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fileUpload'])) {
+    $file = $_FILES['fileUpload'];
+    $filename = basename($file['name']);
+    $filepath = $file['tmp_name'];
+    $filedata = file_get_contents($filepath);
+    $base64data = base64_encode($filedata);
 
-    // Kiểm tra và tạo thư mục nếu chưa tồn tại
-    if (!is_dir($targetDir)) {
-        mkdir($targetDir, 0777, true);
-    }
+    // GitHub API thông tin
+    $owner = 'shin0pro'; // Thay thế bằng tên đăng nhập GitHub của bạn
+    $repo = 'uptodown'; // Thay thế bằng tên repository của bạn
+    $path = 'uploads/' . $filename; // Đường dẫn nơi lưu tệp trong repository
+    $message = 'Upload image ' . $filename;
+    $token = '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'; // Thay thế bằng token truy cập cá nhân của bạn
 
-    // Đường dẫn đầy đủ của tệp tải lên
-    $targetFile = $targetDir . basename($_FILES["fileUpload"]["name"]);
-    $uploadOk = 1;
-    $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+    // Tạo dữ liệu yêu cầu
+    $data = json_encode([
+        'message' => $message,
+        'committer' => [
+            'name' => 'Your Name',
+            'email' => 'your-email@example.com'
+        ],
+        'content' => $base64data
+    ]);
 
-    // Kiểm tra loại tệp (ví dụ: chấp nhận JPG, PNG, PDF)
-    $allowedTypes = ["jpg", "png", "pdf"];
-    if (!in_array($fileType, $allowedTypes)) {
-        echo "Chỉ cho phép các định dạng JPG, PNG, PDF.";
-        $uploadOk = 0;
-    }
+    // Gửi yêu cầu tới GitHub API
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://api.github.com/repos/$owner/$repo/contents/$path");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Authorization: token ' . $token,
+        'User-Agent: PHP'
+    ]);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
-    // Kiểm tra nếu tệp đã tồn tại
-    if (file_exists($targetFile)) {
-        echo "Tệp đã tồn tại.";
-        $uploadOk = 0;
-    }
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
 
-    // Giới hạn kích thước tệp (tối đa 500MB)
-    if ($_FILES["fileUpload"]["size"] > 500000000) {
-        echo "Dung lượng tệp vượt quá giới hạn cho phép (500MB).";
-        $uploadOk = 0;
-    }
-
-    // Tiến hành tải lên nếu không có lỗi
-    if ($uploadOk == 1) {
-         if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
-            echo "Tệp " . htmlspecialchars(basename($_FILES["fileUpload"]["name"])) .
-            $output = shell_exec("git add temp_uploads/" . escapeshellarg(basename($_FILES["fileUpload"]["name"])) . " && git commit -m 'Upload " . escapeshellarg(basename($_FILES["fileUpload"]["name"])) . "' && git push origin main");
-             echo "<pre>$output</pre>";
-             echo "<br><a href='index.php'>Quay lại</a>";
-        } else {
-            echo "Có lỗi xảy ra khi tải lên tệp.";
-        }
-    } else {
-        echo "Tệp không thể tải lên.";
-    }
-}
+    // Kiểm tra nếu $uploadOk bằng 0 do lỗi 
+if ($uploadOk == 0) 
+{ echo "Xin lỗi, tệp của bạn không được tải lên."; 
+// Nếu mọi thứ đều ổn, cố gắng tải lên tệp 
+} 
+else 
+{ if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) 
+{ echo "Tệp " . htmlspecialchars(basename($_FILES["fileUpload"]["name"])) . " đã được tải lên."; } 
+else 
+{ echo "Xin lỗi, đã xảy ra lỗi khi tải lên tệp của bạn."; } } } 
 ?>
