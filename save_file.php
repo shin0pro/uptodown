@@ -33,9 +33,12 @@ if (isset($_POST['submit'])) {
     }
 
     // Tiến hành tải lên nếu không có lỗi
-    if ($uploadOk) {
-        if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $targetFile)) {
-            echo "Đã tải xong";
+    if ($uploadOk == 1) {
+         if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
+            echo "Tệp " . htmlspecialchars(basename($_FILES["fileUpload"]["name"])) .
+            $output = shell_exec("git add temp_uploads/" . escapeshellarg(basename($_FILES["fileUpload"]["name"])) . " && git commit -m 'Upload " . escapeshellarg(basename($_FILES["fileUpload"]["name"])) . "' && git push origin main");
+             echo "<pre>$output</pre>";
+             echo "<br><a href='index.php'>Quay lại</a>";
         } else {
             echo "Có lỗi xảy ra khi tải lên tệp.";
         }
